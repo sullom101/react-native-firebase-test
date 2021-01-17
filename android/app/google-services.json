@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "257086512530",
+    "project_id": "lunchapp-e0e1a",
+    "storage_bucket": "lunchapp-e0e1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257086512530:android:2e416a3ea06109ba00f54b",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257086512530-m49i62c0f00f9sojaqtuh8jdejfq5j1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.application",
+            "certificate_hash": "0c29e7f02dd6baff4d7af19e4c5a8aad2c9bbf21"
+          }
+        },
+        {
+          "client_id": "257086512530-sm98kgf4pmon5ojthjhtuqca1hpof9pa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyKjbd7t2A0pSuC6Nqs0zYOUh0vg9PEbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257086512530-sm98kgf4pmon5ojthjhtuqca1hpof9pa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
