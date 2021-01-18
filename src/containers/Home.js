@@ -1,45 +1,47 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, SafeAreaView, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  FlatList,
+  LogBox,
+} from 'react-native';
 import Card from '../components/Card';
 import Information from './Information';
+import {fetchLaunche} from '../redux/actions/launchAction';
+import {connect} from 'react-redux';
+
+
 
 function Home({navigation}) {
   const [data, setData] = useState({});
+  // const {fetchLaunche} = props;
 
-  const getData = async () => {
-    try {
-      let response = await fetch('https://launchlibrary.net/1.4/launch/next/5');
-      let json = await response.json();
-      console.log(json);
-      setData(json);
-      return json;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await fetchLaunche();
+  //   };
+  //   fetchData();
+  //   SplashScreen.hide();
+  // }, [fetchLaunche]);
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // console.log('*********',props);
 
   return (
-    <>
-      {/* <FlatList> */}
-      <View style={style.container}>
-        {/* <Card
-                launchName
-                onPress
-                image
-                launchName
-                windowStart
-              /> */}
-        <Text>This is home</Text>
-      </View>
-      {/* </FlatList> */}
-      );
-    </>
+    <View style={style.container}>
+      <Text>This is home</Text>
+    </View>
   );
 }
+
+// const mapStateToProps = (state) => ({
+//   launch: state.launch.launch,
+// });
+
+// const mapDispatchToProps = {
+//   fetchLaunche,
+// };
 
 const style = StyleSheet.create({
   container: {
@@ -50,4 +52,7 @@ const style = StyleSheet.create({
   },
 });
 
+
 export default Home;
+// export default connect(mapStateToProps, mapDispatchToProps)(Home);
+ 

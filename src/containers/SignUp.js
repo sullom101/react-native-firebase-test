@@ -96,13 +96,14 @@ function Login({route, navigation}) {
           style={style.input}
           placeholderTextColor="#4A4A4A"
           placeholder="Password"
+          secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
 
-        <Button title="SIGN UP" onPress={() => onRegisterPress()} />
+        <Button title="SIGN UP" onPress={() => onRegisterPress()} disabled={loginDisable}/>
       </View>
     </SafeAreaView>
   );

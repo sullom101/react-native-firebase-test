@@ -7,11 +7,15 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  LogBox
 } from 'react-native';
 import Button from '../components/Button';
 
+
 import auth from '@react-native-firebase/auth';
 import firebase from '../../config/firebase';
+
+LogBox.ignoreLogs(['Setting a timer']);
 
 function Login({navigation}) {
   const [email, setEmail] = useState('');
@@ -19,9 +23,6 @@ function Login({navigation}) {
   const [loginDisable, setLoginDisable] = useState(false);
   const [data, setData] = useState('');
 
-  // const onLoginPress = () => {
-  //   navigation.navigate('Home');
-  // };
   const onLoginPress = () => {
     if (!loginDisable) {
       setLoginDisable(true);
@@ -55,7 +56,6 @@ function Login({navigation}) {
         });
     }
   };
-
   return (
     <SafeAreaView
       style={{
@@ -86,14 +86,12 @@ function Login({navigation}) {
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          secureTextEntry={true}
         />
-        <Button title="LOG IN" onPress={onLoginPress} />
+        <Button title="LOG IN"  onPress={()=>onLoginPress} disabled={loginDisable}/>
         <View style={style.signWrap}>
-          <TouchableOpacity style={{width: '30%'}} onPress={}>
-            <Image
-              style={{height: 40, width: 100}}
-              source={require('../../assest/sign_up.png')}
-            />
+          <TouchableOpacity style={{width:'30%'}} onPress={()=> navigation.navigate('SignUp')}>
+            <Text style={style.signUpLink}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -133,6 +131,12 @@ const style = StyleSheet.create({
     marginTop: 15,
     padding: 5,
   },
+  signUpLink:{
+    fontSize: 20, 
+    color: 'black',
+    textDecorationLine:'underline',
+    fontWeight:'normal'
+  }
 });
 
 export default Login;
