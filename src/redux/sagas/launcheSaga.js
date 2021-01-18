@@ -1,9 +1,12 @@
-import {fetchLauncheSuccess, fetchLauncheFailure} from '../actions/launchAction';
+import {
+  fetchLauncheSuccess,
+  fetchLauncheFailure,
+} from '../actions/launchAction';
 import FetchLauncheApi from '../../lib/fetchLauncheApi';
 import {call, put, takeEvery} from 'redux-saga/effects';
 // import { AsyncStorage } from 'react-native'
 
-function* fetchLaunche(action){
+function* fetchLaunche(action) {
   try {
     const data = yield call(FetchLauncheApi.fetchLaunche);
     console.log('*****SAGA******', data);
@@ -14,8 +17,8 @@ function* fetchLaunche(action){
   }
 }
 
-export default function* root(){
-  yield takeEvery(FETCH, fetchLaunche);
+export default function* root() {
+  yield takeEvery('FETCH', fetchLaunche);
 }
 
 // async function storeLaunche() {

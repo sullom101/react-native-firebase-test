@@ -1,5 +1,5 @@
 import sagas from './sagas/';
-import {applyMiddleware, compose, createStore, Dispatch, MiddlewareAPI} from 'redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 import {persistStore} from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers/index';
@@ -11,7 +11,7 @@ import rootReducer from './reducers/index';
  *--------------------------------------------------*
  */
 
-const appMiddleware = (_store: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
+const appMiddleware = (_store) => (next) => (action) => {
   //   var state = store.getState()
   //   switch (action.type) {
   //     case actions.ADD_TASK:
@@ -40,7 +40,9 @@ sagaMiddleware.run(sagas);
 //   applyMiddleware(...middlewares),
 //   // other store enhancers if any
 // );
-// store.subscribe(() => console.log('_____STORE GETSTATE_____', store.getState()));
+store.subscribe(() =>
+  console.log('_____STORE GETSTATE_____', store.getState()),
+);
 
 export const persistor = persistStore(store);
 // persistor.purge();

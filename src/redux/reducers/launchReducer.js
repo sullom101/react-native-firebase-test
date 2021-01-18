@@ -1,14 +1,13 @@
-
 const initialState = {
   launches: {
     id: '',
     name: '',
     windowstart: '',
     missions: [],
-    rocket:{
-        imageSizes:[],
-        imageURL:''
-    }
+    rocket: {
+      imageSizes: [],
+      imageURL: '',
+    },
   },
 };
 
@@ -25,13 +24,14 @@ const initialState = {
 
 export default function launcheReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_SUCCESS:
-        console.log('**** LAUNCHES Reducer ****', action , state);
-      return {...state };
-    case FETCH_FAILURE:
-      // console.log('****SERIE Reducer ****', state);
-      return {...state,  launches: action.payload};
+    case 'FETCH_SUCCESS':
+      console.log('**** LAUNCHES Reducer ****', action, state);
+      return {...state};
+    case 'FETCH_FAILURE':
+      console.log('****SERIE Reducer ****', state);
+      return {...state, launches: action.payload};
     default:
+      console.log('**** default SERIE Reducer ****', state);
       return state;
   }
 }
