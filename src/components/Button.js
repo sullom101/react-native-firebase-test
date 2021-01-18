@@ -5,10 +5,10 @@ import {
     TouchableOpacity
   } from 'react-native';
 
-function Button({title, onPress}) {
+function Button({title, onPress ,disabled}) {
     return (
         <>
-        <TouchableOpacity style={style.button} onPress={onPress}>
+        <TouchableOpacity style={style.button} onPress={onPress} disabled={disabled}>
           <Text style={style.loginText}> {title}</Text>
         </TouchableOpacity>     
         </>
