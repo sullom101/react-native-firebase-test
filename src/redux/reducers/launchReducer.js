@@ -1,37 +1,28 @@
 const initialState = {
-  launches: {
-    id: '',
-    name: '',
-    windowstart: '',
-    missions: [],
-    rocket: {
-      imageSizes: [],
-      imageURL: '',
-    },
-  },
+  launches: [],
+  total: 0,
+  offset: 0,
+  count: 0,
 };
-
-// {
-//   launches: Object;
-//   id: String;
-//   name: String;
-//   windowstart:String;
-//   missions:Array;
-//   rocket: Object;
-//   imageSizes:Number;
-//   imageURL:String;
-// }
 
 export default function launcheReducer(state = initialState, action) {
   switch (action.type) {
     case 'FETCH_SUCCESS':
-      console.log('**** LAUNCHES Reducer ****', action, state);
-      return {...state};
+      return {
+        ...state,
+        launches: [...action.payload.launches],
+        total: action.payload.total,
+        offset: action.payload.offset,
+        count: action.payload.count,
+      };
     case 'FETCH_FAILURE':
-      console.log('****SERIE Reducer ****', state);
-      return {...state, launches: action.payload};
+      // console.log('****LAUNCHES  FAILURE Reducer ****', state);
+      return state;
+    case 'FETCH_REQUEST':
+      // console.log('****LAUNCHES  FAILURE Reducer ****', state);
+      return {...state, offset: action.payload};
     default:
-      console.log('**** default SERIE Reducer ****', state);
+      // console.log('**** default LAUNCHR Reducer ****', state);
       return state;
   }
 }

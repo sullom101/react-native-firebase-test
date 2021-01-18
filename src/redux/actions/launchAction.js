@@ -1,14 +1,14 @@
-export const fetchLauncheSuccess = (payload) => ({
+export const fetchLaunchSuccess = (payload) => ({
   type: 'FETCH_SUCCESS',
   payload,
 });
 
-export const fetchLauncheFailure = (payload) => ({
+export const fetchLaunchFailure = (payload) => ({
   type: 'FETCH_FAILURE',
   payload,
 });
 
-export const fetchLaunche = (payload) => ({
-  type: 'FETCH',
+export const fetchLaunch = (payload) => ({
+  type: 'FETCH_REQUEST',
   payload,
 });
