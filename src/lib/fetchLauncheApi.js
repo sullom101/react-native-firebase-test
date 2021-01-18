@@ -1,10 +1,35 @@
-export const fetchLauncheApi = async () => {
-  try {
-    let response = await fetch('https://launchlibrary.net/1.4/launch/next/5');
-    let json = await response.json();
-    console.log('*****', json);
-    return json.launches;
-  } catch (error) {
-    console.error(error);
+const apiEntry = 'https://launchlibrary.net/1.4';
+
+export default class fetchLauncheApi {
+  static apiEntry = apiEntry;
+
+  static async fetchData(endpoint) {
+    const url = `${apiEntry}/launch/${endpoint}`;
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        // console.log('***JSON API**', json);
+        return json;
+      });
   }
-};
+
+  static async fetchMission(id) {
+    const url = `${apiEntry}/mission/${id}`;
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        // console.log('***JSON API**', json);
+        return json;
+      });
+  }
+
+  static async fetchLaunchStatus(id) {
+    const url = `${apiEntry}/launchstatus/${id}`;
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        // console.log('***JSON API**', json);
+        return json;
+      });
+  }
+}

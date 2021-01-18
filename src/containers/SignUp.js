@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Button from '../components/Button';
 import {firebase} from '../../config/firebase';
+import {useDispatch} from 'react-redux';
 
 function Login({route, navigation}) {
   const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ function Login({route, navigation}) {
   const [name, setName] = useState('');
   const [surName, setSurName] = useState('');
   const [loginDisable, setLoginDisable] = useState(false);
+  const dispatch = useDispatch();
 
   const onRegisterPress = () => {
     if (!loginDisable) {
@@ -33,17 +35,12 @@ function Login({route, navigation}) {
             surName,
           };
 
-          const usersRef = firebase.firestore().collection('users');
-          usersRef
-            .doc(uid)
-            .set(data)
-            .then(() => {
-              navigation.navigate('Home', {user: data});
-            })
-            .catch((error) => {
-              setLoginDisable(false);
-              alert(error);
-            });
+          dispatch({
+            type: 'FETCH_USER',
+            payload: data,
+          });
+
+          navigation.navigate('Home', {user: data});
         })
         .catch((error) => {
           setLoginDisable(false);
@@ -103,7 +100,11 @@ function Login({route, navigation}) {
           autoCapitalize="none"
         />
 
-        <Button title="SIGN UP" onPress={() => onRegisterPress()} disabled={loginDisable}/>
+        <Button
+          title="SIGN UP"
+          onPress={() => onRegisterPress()}
+          disabled={loginDisable}
+        />
       </View>
     </SafeAreaView>
   );

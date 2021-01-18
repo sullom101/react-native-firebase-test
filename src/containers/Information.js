@@ -1,51 +1,78 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Touchable,
-  TouchableOpacity,
-} from 'react-native';
-import Header from '../components/Header';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {statusCheck} from '../utils/helpers';
 
-function Information({}) {
+function Information({route, navigation}) {
+  const {data} = route.params;
+  const {imageSizes, imageURL} = data.rocket;
   const [tab, useTab] = useState(0);
-  console.log(tab);
+
+  const regex = /\_(\d+)./g;
+  const formattedImage = imageURL.replace(
+    regex,
+    `_${Math.min(...imageSizes)}.`,
+  );
+
   return (
     <>
-      <Image
-        style={style.image}
-        source={require('../../assest/in_placeholder.png')}></Image>
-      <View style={style.tabWrap}>
+      {imageURL ===
+      'https://launchlibrary1.nyc3.digitaloceanspaces.com/RocketImages/placeholder_1920.png' ? (
+        <Image
+          source={require('../../assest/in_placeholder.png')}
+          style={styles.image}
+        />
+      ) : (
+        <Image source={{uri: formattedImage}} style={styles.image} />
+      )}
+      <View style={styles.tabWrap}>
         <TouchableOpacity
-          style={tab === 0 ? style.tabClicked : style.tab}
+          style={tab === 0 ? styles.tabClicked : styles.tab}
           onPress={() => useTab(0)}>
-          <Text style={tab === 0 ? style.text : style.textClicked}>
+          <Text style={tab === 0 ? styles.text : styles.textClicked}>
             Information
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tab === 1 ? style.tabClicked : style.tab}
+          style={tab === 1 ? styles.tabClicked : styles.tab}
           onPress={() => useTab(1)}>
-          <Text style={tab === 1 ? style.text : style.textClicked}>
+          <Text style={tab === 1 ? styles.text : styles.textClicked}>
             Missions
           </Text>
         </TouchableOpacity>
       </View>
-      {tab ===0 ? (
-      <View style={style.launchWrap}>
-        <Text style={style.lunchId}>LAUNCH ID</Text>
-        <Text style={style.launchDescription}>launchID</Text>
-        <Text style={style.lunchId}>STATUS</Text>
-        <Text style={style.launchDescription}>statusDescription</Text>
-      </View>
-      ) : <Text> hello </Text>}
+      {tab === 0 ? (
+        <View style={styles.launchWrap}>
+          <Text style={styles.lunchId}>LAUNCH ID</Text>
+          <Text style={styles.launchDescription}>{data.id}</Text>
+          <Text style={styles.lunchId}>STATUS</Text>
+          <Text style={styles.launchDescription}>
+            {statusCheck(data.status)}
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.launchWrap}>
+          <Text style={styles.lunchId}>MISSION NAME</Text>
+          <Text style={styles.launchDescription}>
+            {data?.missions[0]?.name}
+          </Text>
+          <Text style={styles.lunchId}>TYPE</Text>
+          <Text style={styles.launchDescription}>
+            {/* {data.lsp.name} */}
+            {data?.missions[0]?.typeName}
+          </Text>
+          <Text style={styles.lunchId}>DESCRIPTION</Text>
+          <Text style={styles.launchDescription}>
+            {data?.missions[0]?.description}
+          </Text>
+        </View>
+      )}
     </>
   );
 }
 
-const style = StyleSheet.create({
+export default Information;
+
+const styles = StyleSheet.create({
   image: {
     display: 'flex',
     justifyContent: 'center',
@@ -99,5 +126,3 @@ const style = StyleSheet.create({
     marginBottom: 15,
   },
 });
-
-export default Information;
