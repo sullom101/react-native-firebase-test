@@ -22,7 +22,7 @@ const LaunchList = ({navigation}) => {
     <FlatList
       style={styles.flatlistWrapper}
       data={launch.launches}
-      // windowSize={10}
+      windowSize={10}
       initialNumToRender={10}
       keyExtractor={(item) => `${item.id}`}
       renderItem={({item, index}) => {
@@ -34,10 +34,11 @@ const LaunchList = ({navigation}) => {
             windowStart={item.windowstart}
             imageUrl={item.rocket.imageURL}
             imageSizes={item.rocket.imageSizes}
+            id={item.id}
           />
         );
       }}
-      onEndReached={requestMore}
+      // onEndReached={() => requestMore()}
       onEndReachedThreshold={10}
     />
   );
