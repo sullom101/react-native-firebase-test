@@ -7,48 +7,59 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  LogBox
 } from 'react-native';
 import Button from '../components/Button';
-
-
-import auth from '@react-native-firebase/auth';
-import firebase from '../../config/firebase';
-
-LogBox.ignoreLogs(['Setting a timer']);
+import {useDispatch} from 'react-redux';
+import {firebase} from '../../config/firebase';
 
 function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginDisable, setLoginDisable] = useState(false);
   const [data, setData] = useState('');
+  const dispatch = useDispatch();
 
   const onLoginPress = () => {
-    if (!loginDisable) {
+    console.log('onLogin prtess');
+    if (!loginDisable && email && password) {
+      console.log('onLogin prtess inside if');
       setLoginDisable(true);
 
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((response) => {
+          console.log('Login Response @@@@@@@@@@', response);
           const uid = response.user.uid;
-          const usersRef = firebase.firestore().collection('users');
-          usersRef
-            .doc(uid)
-            .get()
-            .then((firestoreDocument) => {
-              if (!firestoreDocument.exists) {
-                alert('User does not exist anymore.');
-                return;
-              }
-              const user = firestoreDocument.data();
-              setLoginDisable(false);
-              navigation.navigate('Home', {user});
-            })
-            .catch((error) => {
-              setLoginDisable(false);
-              alert(error);
-            });
+          const data = {
+            id: uid,
+            email,
+          };
+
+          setLoginDisable(false);
+          dispatch({
+            type: 'FETCH_USER',
+            payload: data,
+          });
+
+          // navigation.navigate('Home');
+
+          // const usersRef = firebase.firestore().collection('users');
+          // usersRef
+          //   .doc(uid)
+          //   .get()
+          //   .then((firestoreDocument) => {
+          //     if (!firestoreDocument.exists) {
+          //       alert('User does not exist anymore.');
+          //       return;
+          //     }
+          //     const user = firestoreDocument.data();
+
+          //   })
+          //   .catch((error) => {
+          //     setLoginDisable(false);
+          //     alert(error);
+          //   });
         })
         .catch((error) => {
           setLoginDisable(false);
@@ -88,9 +99,15 @@ function Login({navigation}) {
           autoCapitalize="none"
           secureTextEntry={true}
         />
-        <Button title="LOG IN"  onPress={()=>onLoginPress} disabled={loginDisable}/>
+        <Button
+          title="LOG IN"
+          onPress={() => onLoginPress()}
+          disabled={loginDisable}
+        />
         <View style={style.signWrap}>
-          <TouchableOpacity style={{width:'30%'}} onPress={()=> navigation.navigate('SignUp')}>
+          <TouchableOpacity
+            style={{width: '30%'}}
+            onPress={() => navigation.navigate('SignUp')}>
             <Text style={style.signUpLink}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -131,12 +148,12 @@ const style = StyleSheet.create({
     marginTop: 15,
     padding: 5,
   },
-  signUpLink:{
-    fontSize: 20, 
+  signUpLink: {
+    fontSize: 20,
     color: 'black',
-    textDecorationLine:'underline',
-    fontWeight:'normal'
-  }
+    textDecorationLine: 'underline',
+    fontWeight: 'normal',
+  },
 });
 
 export default Login;

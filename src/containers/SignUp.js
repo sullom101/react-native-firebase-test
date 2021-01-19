@@ -39,8 +39,6 @@ function Login({route, navigation}) {
             type: 'FETCH_USER',
             payload: data,
           });
-
-          navigation.navigate('Home', {user: data});
         })
         .catch((error) => {
           setLoginDisable(false);
@@ -50,13 +48,7 @@ function Login({route, navigation}) {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+    <SafeAreaView style={style.safeAreaView}>
       <View style={style.container}>
         <Image
           style={style.logo}
@@ -111,6 +103,12 @@ function Login({route, navigation}) {
 }
 
 const style = StyleSheet.create({
+  safeAreaView: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     display: 'flex',
     justifyContent: 'center',

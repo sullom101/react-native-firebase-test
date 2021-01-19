@@ -19,7 +19,7 @@ function Home({navigation, fetchLaunch, launch}) {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      await fetchLaunch('/2020-07-18/2021-04-18');
+      await fetchLaunch('/2020-07-18/2021-04-18?limit=100');
     };
     fetchData();
   }, [fetchLaunch]);
