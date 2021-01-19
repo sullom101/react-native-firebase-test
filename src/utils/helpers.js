@@ -19,3 +19,7 @@ export const statusCheck = (status) => {
       return 'Not Provided';
   }
 };
+
+export const checkURL = (url) => {
+  return url.match(/\.(jpeg|jpg|gif|png)$/) != null;
+};
