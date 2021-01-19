@@ -23,8 +23,8 @@ const Theme = {
 function NavigationStack() {
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const user = useSelector((state) => state.user.user);
-  console.log('this is user', user);
+  const user = useSelector((state) => state.user);
+  console.log('this is user', user.isAuth);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
